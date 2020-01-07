@@ -3,7 +3,8 @@ import React from 'react';
 class Form extends React.Component {
   state = {
     firstName: "John",
-    lastName: "Henry"
+    lastName: "Henry",
+    submittedData: []
   }
 
   handleFirstNameChange = event => {
@@ -18,11 +19,19 @@ class Form extends React.Component {
     })
   }
 
+  handleSubmit = event => {
+    event.preventDefault()
+    let formData = { firstName: this.state.firstName, lastName: this.state.lastName }
+    this.setState({submittedData: formData})
+    console.log(this.state)
+  }
+
   render() {
     return (
-      <form>
+      <form onSubmit={event => this.handleSubmit(event)}>
         <input type="text" name="firstName" onChange={event => this.handleFirstNameChange(event)} value={this.state.firstName} />
         <input type="text" name="lastName" onChange={event => this.handleLastNameChange(event)} value={this.state.lastName} />
+        <input type="submit"/>
       </form>
     )
   }
